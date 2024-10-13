@@ -1,0 +1,41 @@
+# Common backup files
+\#*#
+*~
+*.bak
+~$*
+
+# Cadence junky files
+*,[1234]
+*.jrl
+*.run
+*.log
+
+# OrCad junk
+*_[0-9].OBK
+*_[0-9].DBK
+
+# KiCad junk
+*.kicad_pcb-bak
+*.bck
+*.kicad_*.lck
+fp-info-cache
+*-backups/*[0-9].zip
+
+# KiCad local project config file.
+*.kicad_prl
+
+# CAD backups
+*.FCStd[1-9]
+*.blend[1-9]
+
+# OS junk
+.DS_Store
+Thumbs.db
+._*
+.Spotlight-V100
+.Trashes
+
+# Build Products
+*.o
+__pycache__
+*.pyc
