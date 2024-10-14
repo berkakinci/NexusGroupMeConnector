@@ -1,1 +1,5 @@
 runtime: python312
+
+handlers:
+- url: /images
+  static_dir: images
