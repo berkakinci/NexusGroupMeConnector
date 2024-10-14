@@ -28,6 +28,12 @@ def hello():
     Returns:
         A string.
     """
+    # For authentication debug, uncomment.
+    #debug_info = f'{request.headers=}'
+    #debug_info += f'{request.data=}'
+    #debug_info += f'{request.json=}'
+    #logging.info(debug_info)
+
     return "Nexus to GroupMe connector.  Expecting Event info POSTs at /event."
 
 @app.route("/event", methods=['POST', 'GET'])
@@ -39,6 +45,12 @@ def handle_incoming_event():
     Returns:
         Success, Happy Text.
     """
+
+    # For authentication debug, uncomment.
+    #debug_info = f'{request.headers=}'
+    #debug_info += f'{request.data=}'
+    #debug_info += f'{request.json=}'
+    #logging.info(debug_info)
 
     # Authentication
     nexus.abort_unless_authenticated(request.headers,
