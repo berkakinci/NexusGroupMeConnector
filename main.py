@@ -21,7 +21,7 @@ groupme = GroupMe(config.groupme_bot_id)
 nexus = Nexus(config.nexus_token,
               config.timezone)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello():
     """Return a happy HTTP greeting.
 
