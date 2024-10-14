@@ -24,10 +24,17 @@ class Nexus:
                                    headers,
                                    extra_message=''):
         "Checks Authentication token.  Aborts on authentication failure"
-        got_token = headers.get('Nexus-Token')
-        if not got_token == self.nexus_token:
+        if not self.is_authenticated(headers):
             abort(401, f"Not Authorized.  {extra_message}")
         return
+
+    def is_authenticated(self,
+                         headers):
+        "Checks Authentication token.  Returns boolean."
+        got_token = headers.get('Nexus-Token')
+        if not got_token == self.nexus_token:
+            return False
+        return True
 
     def _time_to_human(self,
                        obj,

@@ -53,8 +53,10 @@ def handle_incoming_event():
     #logging.info(debug_info)
 
     # Authentication
-    nexus.abort_unless_authenticated(request.headers,
-                                     "Only Nexus is allowed to post events")
+    #nexus.abort_unless_authenticated(request.headers,
+    #                                 "Only Nexus is allowed to post events")
+    if not nexus.is_authenticated(request.headers):
+        return "Not Authenticated.  Nexus-Token didn't match."
 
     # If we are here, we have a legitimate event
     #debug_info = f'{request.headers=}'
@@ -64,7 +66,7 @@ def handle_incoming_event():
 
     message = nexus.pretty(request.get_json())
     result = groupme.post_message(f"{message}")
-    debug_info = f'{result=}'
+    debug_info = f'POST to GroupMe {result=}'
     logging.info(debug_info)
 
     return "Got it!"
