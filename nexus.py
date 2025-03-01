@@ -56,6 +56,36 @@ class Nexus:
             human[key] = value
         return human
 
+    def _extract_expected(self,
+                          obj):
+        "Extracts expected data to a better formatted prologue."
+        prologue = ""
+
+        # Discard the dataAsOfTime for display
+        _ = obj.pop('dataAsOfTime', '')
+
+        # Pop out the most intersting stuff into prologue
+        if 'match' in obj:
+            interesting = ['label',
+                           'status']
+            for key in interesting:
+                prologue += obj['match'].pop(key, '<??>')
+                prologue += ' '
+            prologue += '\n'
+
+        prologue += 'Event '
+        prologue += obj.pop('eventKey', '<???>')
+        prologue += '\n'
+
+        # Pop out remaining match details up a level in object
+        match = obj.pop('match', {})
+        for key, value in match.items():
+            newkey  = 'match_'
+            newkey += key
+            obj[newkey] = value
+
+        return (prologue, obj)
+
     def _obj_pretty(self, obj):
         "Pretty-print an object"
         return self.pp_for_message.pformat(obj)
@@ -65,6 +95,8 @@ class Nexus:
         message = ""
 
         obj = self._time_to_human(obj)
+        prologue, obj = self._extract_expected(obj)
 
+        message += prologue
         message += self._obj_pretty(obj)
         return message
